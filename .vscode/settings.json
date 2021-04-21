@@ -1,3 +1,12 @@
 {
-    "python.pythonPath": "/Users/brittneypotts/.local/share/virtualenvs/python-server-Vm6UEVzl/bin/python"
+    "python.pythonPath": "/Users/brittneypotts/.local/share/virtualenvs/python-server-Vm6UEVzl/bin/python",
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "Python  Kennels",
+            "database": "kennel.db"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
 }
