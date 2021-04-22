@@ -98,3 +98,5 @@ SELECT a.id,
     a.customer_id
 FROM animal a
 WHERE a.id = 2
+INSERT INTO `Animal`
+VALUES (null, "Daps", "Kennel", "Boxer", 2, 2);

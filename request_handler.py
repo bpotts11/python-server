@@ -1,7 +1,7 @@
 import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from animals import get_all_animals, get_single_animal, create_animal, delete_animal, update_animal
-from customers import get_customers_by_email
+# from customers import get_customers_by_email
 
 
 # Here's a class. It inherits from another class.
