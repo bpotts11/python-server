@@ -1,1 +1,1 @@
-from .request import get_customers_by_email
+# from .request import get_customers_by_email
