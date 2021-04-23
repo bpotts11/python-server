@@ -1,6 +1,8 @@
 import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from locations.request import create_location
 from animals import get_all_animals, get_single_animal, create_animal, delete_animal, update_animal
+from locations import get_all_locations, get_single_location, create_location, delete_location, update_location
 # from customers import get_customers_by_email
 
 
@@ -78,23 +80,28 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_single_animal(id)}"
                 else:
                     response = f"{get_all_animals()}"
-            elif resource == "customers":
+            elif resource == "locations":
                 if id is not None:
-                    response = f"{get_single_customer(id)}"
+                    response = f"{get_single_location(id)}"
                 else:
-                    response = f"{get_all_customers()}"
+                    response = f"{get_all_locations()}"
+            # elif resource == "customers":
+            #     if id is not None:
+            #         response = f"{get_single_customer(id)}"
+            #     else:
+            #         response = f"{get_all_customers()}"
 
         # Response from parse_url() is a tuple with 3
         # items in it, which means the request was for
         # `/resource?parameter=value`
-        elif len(parsed) == 3:
-            (resource, key, value) = parsed
+        # elif len(parsed) == 3:
+        #     (resource, key, value) = parsed
 
             # Is the resource `customers` and was there a
             # query parameter that specified the customer
             # email as a filtering value?
-            if key == "email" and resource == "customers":
-                response = get_customers_by_email(value)
+            # if key == "email" and resource == "customers":
+            #     response = get_customers_by_email(value)
 
         self.wfile.write(response.encode())
 
@@ -112,16 +119,19 @@ class HandleRequests(BaseHTTPRequestHandler):
         (resource, id) = self.parse_url(self.path)
 
         # Initialize new animal
-        new_animal = None
+        new_item = None
 
         # Add a new animal to the list. Don't worry about
         # the orange squiggle, you'll define the create_animal
         # function next.
         if resource == "animals":
-            new_animal = create_animal(post_body)
+            new_item = create_animal(post_body)
+
+        elif resource == "locations":
+            new_item = create_location(post_body)
 
         # Encode the new animal and send in response
-        self.wfile.write(f"{new_animal}".encode())
+        self.wfile.write(f"{new_item}".encode())
 
     # Here's a method on the class that overrides the parent's method.
     # It handles any PUT request.
@@ -139,6 +149,8 @@ class HandleRequests(BaseHTTPRequestHandler):
         if resource == "animals":
             success = update_animal(id, post_body)
         # rest of the elif's
+        elif resource == "locations":
+            success = update_location(id, post_body)
 
         if success:
             self._set_headers(204)
@@ -157,6 +169,9 @@ class HandleRequests(BaseHTTPRequestHandler):
         # Delete a single animal from the list
         if resource == "animals":
             delete_animal(id)
+
+        elif resource == "locations":
+            delete_location(id)
 
         # Encode the new animal and send in response
         self.wfile.write("".encode())
