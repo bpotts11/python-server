@@ -84,7 +84,7 @@ def update_location(id, new_location):
                 name = ?
                 address = ?
         WHERE id = ?
-        """, (new_location['name'], new_location['address']))
+        """, (new_location['name'], new_location['address'], id, ))
 
         rows_affected = db_cursor.rowcount
 
