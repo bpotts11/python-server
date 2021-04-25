@@ -3,6 +3,8 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from locations.request import create_location
 from animals import get_all_animals, get_single_animal, create_animal, delete_animal, update_animal
 from locations import get_all_locations, get_single_location, create_location, delete_location, update_location
+from employees import get_all_employees, get_single_employee, create_employee, delete_employee, update_employee
+from customers import get_all_customers, get_single_customer, create_customer, delete_customer, update_customer
 # from customers import get_customers_by_email
 
 
@@ -85,11 +87,16 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_single_location(id)}"
                 else:
                     response = f"{get_all_locations()}"
-            # elif resource == "customers":
-            #     if id is not None:
-            #         response = f"{get_single_customer(id)}"
-            #     else:
-            #         response = f"{get_all_customers()}"
+            elif resource == "employees":
+                if id is not None:
+                    response = f"{get_single_employee(id)}"
+                else:
+                    response = f"{get_all_employees()}"
+            elif resource == "customers":
+                if id is not None:
+                    response = f"{get_single_customer(id)}"
+                else:
+                    response = f"{get_all_customers()}"
 
         # Response from parse_url() is a tuple with 3
         # items in it, which means the request was for
@@ -126,9 +133,12 @@ class HandleRequests(BaseHTTPRequestHandler):
         # function next.
         if resource == "animals":
             new_item = create_animal(post_body)
-
         elif resource == "locations":
             new_item = create_location(post_body)
+        elif resource == "employees":
+            new_item = create_employee(post_body)
+        elif resource == "customers":
+            new_item = create_customer(post_body)
 
         # Encode the new animal and send in response
         self.wfile.write(f"{new_item}".encode())
@@ -148,9 +158,12 @@ class HandleRequests(BaseHTTPRequestHandler):
 
         if resource == "animals":
             success = update_animal(id, post_body)
-        # rest of the elif's
         elif resource == "locations":
             success = update_location(id, post_body)
+        elif resource == "employees":
+            success = update_employee(id, post_body)
+        elif resource == "customers":
+            success = update_customer(id, post_body)
 
         if success:
             self._set_headers(204)
@@ -169,9 +182,12 @@ class HandleRequests(BaseHTTPRequestHandler):
         # Delete a single animal from the list
         if resource == "animals":
             delete_animal(id)
-
         elif resource == "locations":
             delete_location(id)
+        elif resource == "employees":
+            delete_employee(id)
+        elif resource == "customers":
+            delete_customer(id)
 
         # Encode the new animal and send in response
         self.wfile.write("".encode())

@@ -102,3 +102,5 @@ INSERT INTO `Animal`
 VALUES (null, "Daps", "Kennel", "Boxer", 2, 2);
 INSERT INTO `Location`
 VALUES (null, "Smyrna", "300 Smyrna Dr");
+INSERT INTO `Employee`
+VALUES (null, "Test Tester", "100 Test Ave", 1);
