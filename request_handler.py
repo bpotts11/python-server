@@ -101,14 +101,14 @@ class HandleRequests(BaseHTTPRequestHandler):
         # Response from parse_url() is a tuple with 3
         # items in it, which means the request was for
         # `/resource?parameter=value`
-        # elif len(parsed) == 3:
-        #     (resource, key, value) = parsed
+        elif len(parsed) == 3:
+            (resource, key, value) = parsed
 
             # Is the resource `customers` and was there a
             # query parameter that specified the customer
             # email as a filtering value?
-            # if key == "email" and resource == "customers":
-            #     response = get_customers_by_email(value)
+            if key == "email" and resource == "customers":
+                response = get_customers_by_email(value)
 
         self.wfile.write(response.encode())
 
